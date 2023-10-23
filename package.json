@@ -1,0 +1,14 @@
+{
+  "name": "websocket-server",
+  "version": "1.0.0",
+  "description": "websocket-server",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "ws": "^8.14.2"
+  }
+}
