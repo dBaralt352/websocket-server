@@ -1,10 +1,17 @@
-const clients = new Set();
+const clients = {};
 
 function emit(data){
-  clients.forEach((client) => {
+  for(let origin in clients){
+    clients[origin].forEach((client) => {
+      client.send(data);
+    });
+  }
+}
+function emitToOrigin(origin, data){
+  console.log('emitToOrigin', origin, data);
+  clients[origin].forEach((client) => {
     client.send(data);
-    console.log('Message sent to client');
   });
 }
 
-module.exports = { emit, clients };
+module.exports = { emit, emitToOrigin, clients };
