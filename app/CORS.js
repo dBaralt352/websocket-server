@@ -43,6 +43,7 @@ const allowedOrigins = [
   'https://multicourier.helgasys.com',
   'https://iec.helgasys.com',
   'http://127.0.0.1:8001',
+  'http://localhost:8001',
 ]
 const validateClient = (socket, req) => {
   const origin = req.headers.origin;
@@ -55,7 +56,7 @@ const validateClient = (socket, req) => {
     socket.close();
     return false;
   }
-  if(!(origin in Events.clients))
+  if(Events.clients[origin] === undefined)
     Events.clients[origin] = new Set();
   Events.clients[origin].add(socket);
 }
