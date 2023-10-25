@@ -49,6 +49,7 @@ const validateClient = (socket, req) => {
   const origin = req.headers.origin;
   console.log('origin', origin);
   if (!allowedOrigins.includes(origin)) {
+    console.log(`Origin not allowed ${origin}`)
     socket.send(JSON.stringify({
       type: 'error',
       message: 'Origin not allowed'
