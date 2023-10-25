@@ -12,7 +12,7 @@ server.on('connection', (ws, req) => {
   console.log('connection', origin);
   CORS.validateClient(ws, req);
   ws.on('message', (message) => {
-    Events.emitToOrigin(origin, message);
+    Events.emitToOrigin(origin, message.toString());
   });
   ws.on('close', () => {
     console.log('close', origin);
