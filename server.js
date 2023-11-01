@@ -1,22 +1,23 @@
 'use strict'
 require('dotenv').config();
-const Events = require('./app/Events');
-const CORS = require('./app/CORS');
+const EventHandler = require('./app/EventHandler');
+const ConnectionHelper = require('./app/ConnectionHelper');
+const WebSocketClients = require('./app/WebSocketClients');
 const ws = require('ws');
 const server = new ws.Server({
-  port: process.env.PORT || 8000
+  port: process.env.PORT
 });
 
 server.on('connection', (ws, req) => {
-  let origin=req.headers.origin;
-  console.log('connection', origin);
-  CORS.validateClient(ws, req);
+  ConnectionHelper.validateClient(ws, req);
+  console.log('Client connected');
+  // Events.clients.add(ws);
   ws.on('message', (message) => {
-    Events.emitToOrigin(origin, message.toString());
+    console.log(message.toString());
+    EventHandler.EmitTo(message);
   });
   ws.on('close', () => {
-    console.log('close', origin);
-    if(origin in Events.clients)
-      Events.clients[origin].delete(ws);
+    console.log('Client disconnected');
+    WebSocketClients.removeClient(ws);
   });
 });
