@@ -4,11 +4,12 @@
   "description": "websocket-server",
   "type": "commonjs",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "key": "node generateKey.js"
   },
   "dependencies": {
-    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.0.2",
     "ws": "^8.14.2"
   }
 }
