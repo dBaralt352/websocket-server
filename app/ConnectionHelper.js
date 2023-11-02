@@ -4,8 +4,7 @@ const jwt = require('jsonwebtoken');
 const Logger = require('./Logger');
 
 const AllowedClients = [
-  "ATC",
-  "PIDOBOX"
+  "app1"
 ];
 
 const ValidateClient = (socket, req) => {
