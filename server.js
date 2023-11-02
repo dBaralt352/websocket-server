@@ -9,15 +9,12 @@ const server = new ws.Server({
 });
 
 server.on('connection', (ws, req) => {
-  ConnectionHelper.validateClient(ws, req);
-  console.log('Client connected');
-  // Events.clients.add(ws);
-  ws.on('message', (message) => {
-    console.log(message.toString());
-    EventHandler.EmitTo(message);
+  ConnectionHelper.ValidateClient(ws, req);
+  ws.on('message', (data) => {
+    EventHandler.Handle(ws, data);
   });
   ws.on('close', () => {
     console.log('Client disconnected');
-    WebSocketClients.removeClient(ws);
+    WebSocketClients.RemoveClient(ws);
   });
 });

@@ -1,12 +1,13 @@
+'use strict'
 const Clients = {}
 
-function addClient (connection, client) {
+function AddClient (connection, client) {
   if(!Clients[connection]) Clients[connection] = []
   if(Clients[connection].includes(client)) return
   Clients[connection].push(client)
 }
 
-function removeClient (client) {
+function RemoveClient (client) {
   try{
     for(let connection in Clients){
       if(Clients[connection].includes(client)){
@@ -18,8 +19,8 @@ function removeClient (client) {
   }
 }
 
-function getClients(){
+function GetClients(){
   return Clients
 }
 
-module.exports = { addClient, removeClient, getClients }
+module.exports = { AddClient, RemoveClient, GetClients }
