@@ -15,7 +15,7 @@ function RemoveClient (client) {
       }
     }
   }catch(e){
-    console.log(e)
+    console.error(e)
   }
 }
 
