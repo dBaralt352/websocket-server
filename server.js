@@ -5,7 +5,7 @@ const ConnectionHelper = require('./app/ConnectionHelper');
 const WebSocketClients = require('./app/WebSocketClients');
 const ws = require('ws');
 const server = new ws.Server({
-  port: process.env.PORT
+  port: process.env.PORT || 6001
 });
 
 server.on('connection', (ws, req) => {
@@ -14,7 +14,6 @@ server.on('connection', (ws, req) => {
     EventHandler.Handle(ws, data);
   });
   ws.on('close', () => {
-    console.log('Client disconnected');
     WebSocketClients.RemoveClient(ws);
   });
 });
