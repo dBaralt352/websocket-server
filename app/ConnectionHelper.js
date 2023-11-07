@@ -2,6 +2,7 @@
 const WebSocketClients = require('./WebSocketClients');
 const jwt = require('jsonwebtoken');
 const Logger = require('./Logger');
+const url = require('url');
 
 const AllowedClients = [
   "app1"
@@ -9,9 +10,10 @@ const AllowedClients = [
 
 const ValidateClient = (socket, req) => {
   try {
-    if(!req.headers['websocket-token'])
-      socket.close(1000, 'websocket-token not found in header');
-    let clientId = jwt.verify(req.headers['websocket-token'], process.env.APP_SECRET);
+    let token = url.parse(req.url, true).query.token;
+    if(!token)
+      socket.close(3000, 'No token provided on url parameters');
+    let clientId = jwt.verify(token, process.env.APP_SECRET);
 
     Logger.CreateLog('info', `Client connected: ${clientId.appId}`);
     if (!AllowedClients.includes(clientId.appId)) {
