@@ -12,7 +12,7 @@ const ValidateClient = (socket, req) => {
   try {
     let token = url.parse(req.url, true).query.token;
     if(!token)
-      socket.close(3000, 'No token providen on url parameters');
+      socket.close(3000, 'No token provided on url parameters');
     let clientId = jwt.verify(token, process.env.APP_SECRET);
 
     Logger.CreateLog('info', `Client connected: ${clientId.appId}`);
