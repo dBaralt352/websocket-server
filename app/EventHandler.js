@@ -3,20 +3,21 @@ const WebSocketClients = require('./WebSocketClients');
 const Logger = require('./Logger');
 
 const EventRouter = {
-  message: Emit
+  ping: EmitTo,
+  message: Emit,
+  newConversation: Emit,
 }
 
 function Handle(client, data){
   try {
     let parsedData = JSON.parse(data.toString());
     let event = parsedData.event;
-    let object = parsedData.data;
 
     if(!event) throw new Error(`No event specified in JSON`);
     if(!EventRouter[event]) throw new Error(`Method for '${event}' Event not found`);
 
-    EventRouter[event](client, {data: object});
-    Logger.CreateLog('info', `Event [${event}]: data: ${JSON.stringify(object)}`);
+    EventRouter[event](client, {data: parsedData});
+    Logger.CreateLog('info', `Event [${event}]: data: ${JSON.stringify(parsedData)}`);
   } catch (error) {
     EmitTo(client, { data: { message: 'Invalid JSON format', error: error.message } });
     Logger.CreateLog('error', error);
