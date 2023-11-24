@@ -6,6 +6,7 @@ const EventRouter = {
   ping: EmitTo,
   message: Emit,
   newConversation: Emit,
+  updated: Emit,
 }
 
 function Handle(client, data){
